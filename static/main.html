@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Rdio Collection Chronology</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+  <script src="main.js"></script>
+  <link rel="stylesheet" href="cc.css" type="text/css">
+</head>
+<body>
+  <div id="title">
+    <h1><span class="logo">Rdio</span> collection chronology<span class="userinfo"> for <a href="" class="userlink" target="_blank"></a><span class="reset"></span></span></h1>
+  </div>
+  
+  <div id="dialog">
+    <label>Enter your Rdio Username <input id="username"><button id="go">Go</button></label>
+  </div>
+  
+  <div id="loading">
+    Loading...
+  </div>
+
+  <div id="instructions">
+    Scroll to see more. Click an album to listen.
+  </div>
+  
+  <div id="player">
+    <img id="art">
+    <div id="controls">
+      <button id="prev">Previous</button>
+      <button id="play">Play</button>
+      <button id="pause">Pause</button>
+      <button id="next">Next</button>
+      <a class="listen" href="" target="_blank">Listen on Rdio</a>
+    </div>
+    <div id="trackwrap">
+      <ol id="tracks">
+      </ol>
+    </div>
+  </div>
+
+  <div id="graph">
+  </div>
+
+  <div id="poweredby"><a href="http://www.rdio.com/">Powered by Rdio</a></div>
+  
+  <div id="footer">© 2011 Rdio, Inc. You can build cool stuff too using the <a href="http://developer.rdio.com/">Rdio API</a>.</div>
+
+  <div id="api_swf"></div>
+</body>
+</html>
