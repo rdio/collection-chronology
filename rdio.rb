@@ -1,4 +1,3 @@
-gem 'oauth'
 require 'oauth/consumer'
 OAuth::VERSION = 1
 

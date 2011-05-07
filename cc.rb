@@ -1,7 +1,8 @@
 require 'sinatra'
-require 'rdio'
+require './rdio'
 
 rdio = Rdio.new ENV["RDIO_API_KEY"], ENV["RDIO_API_SHARED_SECRET"]
+
 DOMAIN = ENV["DOMAIN"]
 
 set :public, File.dirname(__FILE__) + '/static'
