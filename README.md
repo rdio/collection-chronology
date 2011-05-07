@@ -1,8 +1,8 @@
-h1. Chronological Collection
+# Chronological Collection
 
-A simple example of how to use the Rdio API
+A simple example of how to use the Rdio API.
 
-h2. Forking instructions
+## Forking instructions
 
 1. Fork this repo on github and download it.
 
