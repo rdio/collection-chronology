@@ -2,32 +2,35 @@
 
 A simple example of how to use the Rdio API.
 
-## Forking instructions
+## Getting Started
 
-1. Fork this repo on github and download it.
+Fork this repo on github and download it.
 
             $ git clone git@github.com:username/collection-chronology.git
 
-2. Get a heroku account then make an app to push to.
+Get a heroku account then make an app to push to.
 
-            $ heroku create collection-chronology-<person>
+            $ heroku create
 
-3. Get an Rdio API key pair.
+Get an Rdio API key pair.
 
    *Don't put your keys in your source!*
 
-4. Copy env.sh.sample to env.sh for local testing and fill in:
+Copy env.sh.sample to env.sh for local testing and fill in your API keys.
 
             $ cp env.sh.sample env.sh
             $ vim env.sh
 
-  Leave DOMAIN alone for local development, but set your RDIO_API_KEY and RDIO_API_SHARED_SECRET_KEY
+Leave DOMAIN alone for local development, but set your RDIO_API_KEY and RDIO_API_SHARED_SECRET_KEY. Now source the file for local testing.
 
             $ source env.sh
+            $ bundle exec thin start
 
-5. Add config variables to your app and push your code:
+Your site will be at http://localhost:3000/. Music playback will not work! You'll need to push the code to the public internet to enable music playback.
 
-            $ heroku config:add DOMAIN=collection-chronology-person
+Add config variables to your app and push your code live:
+
+            $ heroku config:add DOMAIN=<your heroku app name>
             $ heroku config:add RDIO_API_KEY=<your key>
             $ heroku config:add RDIO_SHARED_SECRET_KEY=<your key>
             $ git push heroku master
