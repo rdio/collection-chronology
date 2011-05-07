@@ -21,7 +21,7 @@ h2. Forking instructions
     $ cp env.sh.sample env.sh
     $ vim env.sh
 
-   Fill in DOMAIN, RDIO_API_KEY and RDIO_SHARED_SECRET_KEY
+  Leave DOMAIN alone for local development, but set your RDIO_API_KEY and RDIO_API_SHARED_SECRET_KEY
 
     $ source env.sh
 
