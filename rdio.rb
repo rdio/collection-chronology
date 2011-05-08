@@ -14,10 +14,9 @@ class Rdio
     @access_token = OAuth::AccessToken.new @consumer
   end
 
-  def method_missing(method, args)
+  def method_missing(method, args = {})
     args[:method] = method.to_s
     response = @access_token.post PATH, args
-    payload = JSON::parse response.body
-    payload["result"]
+    JSON::parse(response.body)["result"] if response.code.match("2..")
   end
 end
