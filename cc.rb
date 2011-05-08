@@ -30,12 +30,12 @@ end
 
 get '/myNewReleases/:user' do |user|
   content_type 'application/json', :charset => 'utf-8' # it's json
-  # FIXME: cache_control :public, :max_age => 60*60 # cache it for an hour
+  cache_control :public, :max_age => 60*60 # cache it for an hour
 
-  new = rdio.getNewReleases "count" => 5000
+  @new ||= rdio.getNewReleases "count" => 5000
   mine = rdio.getArtistsInCollection :user => user
   names = mine.map { |i| i["name"] }
-  mynew = new.select { |i| names.member? i["artist"] }
+  mynew = @new.select { |i| names.member? i["artist"] }
 
   mynew.to_json
 end
