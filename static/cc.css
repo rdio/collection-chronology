@@ -223,8 +223,6 @@ body {
 
 #player #art {
   float: left;
-  width: 200px;
-  height: 200px;
 }
 
 #controls {
@@ -368,11 +366,22 @@ body {
 
 .column {
   float: left;
-  width: 250px;
+  width: 50px;
 }
 
 .column.empty {
   opacity: 0.3;
+}
+
+.year  {
+  width: 50px;
+  font-weight: normal;
+  color: #fff;
+  font-size: 13px;
+  line-height: 24px;
+  margin: 5px 0;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+  text-align: center;
 }
 
 .count {
@@ -397,8 +406,8 @@ body {
 }
 
 img.album {
-  width: 200px;
-  height: 200px;
+  width: 50px;
+  height: 50px;
   margin: 0;
   padding: 0;
   border: 0;
@@ -411,8 +420,8 @@ img.album:hover {
   left: -25px;
   top: -25px;
   margin-bottom: -50px;
-  width: 300px;
-  height: 300px;
+  width: 100px;
+  height: 100px;
   -webkit-box-shadow: 0 0 15px rgba(0,0,0,0.8);
   -moz-box-shadow: 0 0 15px rgba(0,0,0,0.8);
 }

@@ -1,3 +1,24 @@
+// albums by year
+var years = {};
+
+// add albums by year
+function addAlbums(data) {
+  // process the data into years
+  for (var i=0; i<data.length; i++) {
+    var album = data[i];
+    var displayDate = album['displayDate'];
+    if (displayDate) {
+      var year = parseInt(displayDate.substr(displayDate.length-4));
+      if (years[year]) {
+        years[year].push(album);
+      } else {
+        years[year] = [album];
+      }
+    }
+  }
+}
+
+
 // load data from the server.
 function load() {
   var username = $('#username').val();
@@ -8,31 +29,35 @@ function load() {
   $.getJSON('/user/'+encodeURIComponent(username), function(u) {
     var user = u['key'];
     var albumCount = 0;
-    function loadNewAlbums() {
-      $.getJSON('/myNewReleases/'+encodeURIComponent(user), function(a) {
+    function loadNextAlbums(page) {
+      $.getJSON('/albums/'+encodeURIComponent(user)+'/'+page, function(a) {
         if (a.length > 0) {
+          // loaded some albums
+          addAlbums(a);
           // update the ui
           albumCount += a.length
           $('#loading').text('Loaded '+albumCount+' albums...');
-
+          // go look for some more
+          loadNextAlbums(page+1);
+        } else {
           // looks like there's nothing left to load
           $('#loading').slideUp();
           $('#instructions').show();
           $('#title h1 .userinfo').show();
-          $('#title h1 .userlink').text(username).attr('href',
-            function(i, val) { return 'http://www.rdio.com/people/' + username });
+          $('#title h1 .userlink').text(username).attr('href', function(i, val) { return 'http://www.rdio.com/people/' + username });
           $('#title h1 .reset').click(function() { location.reload(); });
-          buildGraph(a);
-        }
-        else {
-          $('#loading').text("Looks like there's no new music for artists in your collection this week.");
+          buildGraph();
         }
       })
     }
 
-    loadNewAlbums();
+    loadNextAlbums(0);
   })
 }
+
+
+
+
 
 var rdio_cb = {};
 rdio_cb.ready = function() {
@@ -67,35 +92,46 @@ function play(key, art) {
   $('#pause').show();
 }
 
-function buildGraph(albums) {
+function buildGraph() {
   // calculate width & height
   var min = Infinity, max = 0, height = 0;
+  for (var year in years) {
+    if (year < min) min = year;
+    if (year > max) max = year;
+    if (years[year].length > height) height = years[year].length;
+  }
 
   // size up our space
-  $('#graph').css({'width': '80%', 'height': 'auto'});
+  $('#graph').css({'width': (max-min+1)*50, 'height': 'auto'});
 
   // draw a graph
-  for (var i = 0; i < albums.length; i++) {
-    var column;
-    if (i % 3 == 0) {
-      column = $('<div>').addClass('column');
-      column.appendTo($('#graph'));
+  for (var year=min; year<=max; year++) {
+    var column = $('<div>').addClass('column');
+    column.append($('<div>').addClass('year').text(year));
+    if (years[year]) {
+      for (var i=0; i<years[year].length; i++) {
+        var album = years[year][i];
+        var art = $('<img>').addClass('album').attr('src', album['icon']);
+        art.attr('title', album['name'] + ' / ' + album['artist']);
+        art.attr('id', album['key']);
+        art.click(function() {
+          $('#player').show();
+          $('#instructions').hide();
+          play($(this).attr('id'), $(this).attr('src'));
+        })
+        column.append(art);
+      }
+      column.append($('<div>').addClass('count').text(years[year].length));
+    } else {
+      column.addClass('empty');
+      column.append($('<div>').addClass('count').text('0'));
     }
-
-    var album = albums[i];
-    console.log(album);
-    var art = $('<img>').addClass('album').attr('src', album['icon'].replace("200", "600"));
-    art.attr('title', album['name'] + ' / ' + album['artist']);
-    art.attr('id', album['key']);
-    art.click(function() {
-      $('#player').show();
-      $('#instructions').hide();
-      play($(this).attr('id'), $(this).attr('src'));
-    })
-
-    column.append(art);
+    column.appendTo($('#graph'));
   }
 }
+
+
+
 
 $(document).ready(function() {
   // when the user clicks "go", go.

@@ -2,12 +2,10 @@ require 'sinatra'
 require './rdio'
 
 rdio = Rdio.new ENV["RDIO_API_KEY"], ENV["RDIO_API_SHARED_SECRET"]
-new = rdio.getNewReleases "count" => 5000
 
 DOMAIN = ENV["DOMAIN"]
 
 set :public, File.dirname(__FILE__) + '/static'
-
 
 get '/' do
   redirect '/main.html'
@@ -23,22 +21,6 @@ get '/albums/:user/:page' do |user, page|
   content_type 'application/json', :charset => 'utf-8' # it's json
   cache_control :public, :max_age => 60*60 # cache it for an hour
   (rdio.getAlbumsInCollection :user=>user, :count => 20, :start => 20*page.to_i).to_json
-end
-
-get '/newReleases' do |user|
-  content_type 'application/json', :charset => 'utf-8' # it's json
-  (rdio.getNewReleases "count" => 5000).to_json
-end
-
-get '/myNewReleases/:user' do |user|
-  content_type 'application/json', :charset => 'utf-8' # it's json
-  cache_control :public, :max_age => 60*60 # cache it for an hour
-
-  mine = rdio.getArtistsInCollection :user => user
-  names = mine.map { |i| i["name"] }
-  mynew = new.select { |i| names.member? i["artist"] }
-
-  mynew.to_json
 end
 
 get '/flashvars' do
