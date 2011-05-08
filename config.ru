@@ -1,2 +1,2 @@
-require 'cc'
+require './cc'
 run Sinatra::Application
