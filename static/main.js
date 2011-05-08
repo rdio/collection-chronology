@@ -24,6 +24,9 @@ function load() {
           $('#title h1 .reset').click(function() { location.reload(); });
           buildGraph(a);
         }
+        else {
+          $('#loading').text("Looks like there's no new music for artists in your collection this week.");
+        }
       })
     }
 
