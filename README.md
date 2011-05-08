@@ -21,6 +21,11 @@ Copy env.sh.sample to env.sh for local testing and fill in your API keys.
             $ cp env.sh.sample env.sh
             $ vim env.sh
 
+Install the required ruby gems
+
+            $ gem install bundler
+            $ bundle
+
 Leave DOMAIN alone for local development, but set your RDIO_API_KEY and RDIO_API_SHARED_SECRET_KEY. Now source the file for local testing.
 
             $ source env.sh

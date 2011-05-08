@@ -3,6 +3,7 @@ GEM
   specs:
     daemons (1.1.2)
     eventmachine (0.12.10)
+    json (1.5.1)
     oauth (0.4.4)
     rack (1.2.2)
     sinatra (1.2.6)
@@ -18,6 +19,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  json
   oauth
   sinatra
   thin
