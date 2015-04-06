@@ -1,6 +1,7 @@
-source :rubygems
+source "https://rubygems.org"
+ruby "2.0.0"
 
-gem "thin"
+gem "puma"
 gem "sinatra"
 gem "oauth"
 gem "json"
